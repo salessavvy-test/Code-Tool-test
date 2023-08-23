@@ -1,0 +1,86 @@
+//Sample javascript code
+class Book {
+    constructor(id, title, author, price, quantity) {
+        this.id = id;
+        this.title = title;
+        this.author = author;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
+    displayInfo() {
+        console.log(`Title: ${this.title}`);
+        console.log(`Author: ${this.author}`);
+        console.log(`Price: $${this.price}`);
+        console.log(`Quantity: ${this.quantity}`);
+    }
+}
+
+class ShoppingCart {
+    constructor() {
+        this.items = [];
+    }
+
+    addItem(book, quantity) {
+        this.items.push({ book, quantity });
+        console.log(`Added ${quantity} ${book.title}(s) to the cart.`);
+    }
+
+    removeItem(book) {
+        const index = this.items.findIndex(item => item.book.id === book.id);
+        if (index !== -1) {
+            const removedItem = this.items.splice(index, 1)[0];
+            console.log(`Removed ${removedItem.quantity} ${book.title}(s) from the cart.`);
+        }
+    }
+
+    displayCart() {
+        console.log("Shopping Cart:");
+        this.items.forEach(item => {
+            console.log(`${item.book.title} x${item.quantity}`);
+        });
+    }
+}
+
+class Bookstore {
+    constructor() {
+        this.books = [];
+    }
+
+    addBook(book) {
+        this.books.push(book);
+        console.log(`Added ${book.title} to the bookstore.`);
+    }
+
+    searchByAuthor(author) {
+        const authorBooks = this.books.filter(book => book.author === author);
+        console.log(`Books by ${author}:`);
+        authorBooks.forEach(book => book.displayInfo());
+    }
+}
+
+// Create a bookstore
+const bookstore = new Bookstore();
+
+// Add books to the bookstore
+const book1 = new Book(1, "The Great Gatsby", "F. Scott Fitzgerald", 12.99, 10);
+const book2 = new Book(2, "To Kill a Mockingbird", "Harper Lee", 14.99, 15);
+
+bookstore.addBook(book1);
+bookstore.addBook(book2);
+
+// Create a shopping cart
+const cart = new ShoppingCart();
+
+// Add books to the cart
+cart.addItem(book1, 2);
+cart.addItem(book2, 3);
+
+// Remove a book from the cart
+cart.removeItem(book1);
+
+// Display cart contents
+cart.displayCart();
+
+// Search for books by an author
+bookstore.searchByAuthor("Harper Lee");
