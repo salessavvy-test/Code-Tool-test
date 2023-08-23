@@ -1,0 +1,59 @@
+//Sample Go code
+package main
+
+import (
+	"fmt"
+)
+
+type Task struct {
+	ID       int
+	Title    string
+	Complete bool
+}
+
+type TaskManager struct {
+	Tasks      []Task
+	LastTaskID int
+}
+
+func (tm *TaskManager) AddTask(title string) {
+	tm.LastTaskID++
+	task := Task{ID: tm.LastTaskID, Title: title, Complete: false}
+	tm.Tasks = append(tm.Tasks, task)
+	fmt.Printf("Task '%s' added.\n", title)
+}
+
+func (tm *TaskManager) CompleteTask(taskID int) {
+	for i, task := range tm.Tasks {
+		if task.ID == taskID {
+			tm.Tasks[i].Complete = true
+			fmt.Printf("Task '%s' marked as complete.\n", task.Title)
+			return
+		}
+	}
+	fmt.Println("Task not found.")
+}
+
+func (tm *TaskManager) ListTasks() {
+	fmt.Println("Tasks:")
+	for _, task := range tm.Tasks {
+		status := "Incomplete"
+		if task.Complete {
+			status = "Complete"
+		}
+		fmt.Printf("ID: %d | Title: %s | Status: %s\n", task.ID, task.Title, status)
+	}
+}
+
+func main() {
+	taskManager := TaskManager{}
+
+	taskManager.AddTask("Buy groceries")
+	taskManager.AddTask("Write report")
+
+	taskManager.ListTasks()
+
+	taskManager.CompleteTask(1)
+
+	taskManager.ListTasks()
+}
