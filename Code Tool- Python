@@ -1,0 +1,78 @@
+//Sample python code
+class Product:
+    def __init__(self, product_id, name, price, stock):
+        self.product_id = product_id
+        self.name = name
+        self.price = price
+        self.stock = stock
+
+    def display_info(self):
+        print(f"Product ID: {self.product_id}")
+        print(f"Name: {self.name}")
+        print(f"Price: ${self.price:.2f}")
+        print(f"Stock: {self.stock} units")
+
+class ShoppingCart:
+    def __init__(self):
+        self.items = {}
+
+    def add_item(self, product, quantity):
+        if product.product_id in self.items:
+            self.items[product.product_id] += quantity
+        else:
+            self.items[product.product_id] = quantity
+
+    def remove_item(self, product, quantity):
+        if product.product_id in self.items:
+            if self.items[product.product_id] <= quantity:
+                del self.items[product.product_id]
+            else:
+                self.items[product.product_id] -= quantity
+
+    def display_cart(self):
+        print("Shopping Cart:")
+        for product_id, quantity in self.items.items():
+            print(f"Product ID: {product_id}, Quantity: {quantity}")
+
+class Customer:
+    def __init__(self, customer_id, name, email):
+        self.customer_id = customer_id
+        self.name = name
+        self.email = email
+        self.shopping_cart = ShoppingCart()
+
+    def add_to_cart(self, product, quantity):
+        self.shopping_cart.add_item(product, quantity)
+
+    def remove_from_cart(self, product, quantity):
+        self.shopping_cart.remove_item(product, quantity)
+
+    def checkout(self):
+        total_price = 0
+        print("Checkout Summary:")
+        for product_id, quantity in self.shopping_cart.items.items():
+            product = products[product_id]
+            total_price += product.price * quantity
+            print(f"{product.name} x{quantity}: ${product.price * quantity:.2f}")
+        print(f"Total: ${total_price:.2f}")
+
+# Create some products
+products = {
+    1: Product(1, "Laptop", 999.99, 10),
+    2: Product(2, "Phone", 599.99, 15),
+    3: Product(3, "Headphones", 99.99, 20)
+}
+
+# Create a customer
+customer = Customer(1, "Alice", "alice@example.com")
+
+# Add items to the cart
+customer.add_to_cart(products[1], 2)
+customer.add_to_cart(products[3], 3)
+
+# Remove an item from the cart
+customer.remove_from_cart(products[1], 1)
+
+# Display cart and checkout
+customer.shopping_cart.display_cart()
+customer.checkout()
