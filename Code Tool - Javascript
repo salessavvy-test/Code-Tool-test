@@ -84,3 +84,34 @@ cart.displayCart();
 
 // Search for books by an author
 bookstore.searchByAuthor("Harper Lee");
+
+
+
+class Code {
+  constructor(language, content) {
+    this.language = language;
+    this.content = content;
+  }
+
+  display() {
+    console.log(`Language: ${this.language}`);
+    console.log(`Content: ${this.content}`);
+  }
+
+  run() {
+    if (this.language === 'JavaScript') {
+      try {
+        eval(this.content);
+      } catch (error) {
+        console.error('Error executing code:', error);
+      }
+    } else {
+      console.log('Sorry, this code runner only supports JavaScript.');
+    }
+  }
+}
+
+// Usage:
+const jsCode = new Code('JavaScript', 'console.log("Hello, world!")');
+jsCode.display();
+jsCode.run();
