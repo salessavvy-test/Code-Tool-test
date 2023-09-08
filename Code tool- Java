@@ -2,6 +2,7 @@
 import java.util.ArrayList;
 import java.util.List;
 
+//comment 1
 class Customer {
     private String name;
     private String accountNumber;
@@ -13,6 +14,7 @@ class Customer {
         this.balance = balance;
     }
 
+//comment 2
     public void deposit(double amount) {
         if (amount > 0) {
             balance += amount;
@@ -22,7 +24,8 @@ class Customer {
         }
     }
 
-    public void withdraw(double amount) {
+//comment 3 
+public void withdraw(double amount) {
         if (amount > 0 && amount <= balance) {
             balance -= amount;
             System.out.println("Withdrawal successful. New balance: " + balance);
@@ -30,7 +33,7 @@ class Customer {
             System.out.println("Invalid withdrawal amount or insufficient balance.");
         }
     }
-
+//comment 4
     public void displayInfo() {
         System.out.println("Customer Name: " + name);
         System.out.println("Account Number: " + accountNumber);
@@ -38,6 +41,7 @@ class Customer {
     }
 }
 
+//bank class
 class Bank {
     private String name;
     private List<Customer> customers;
@@ -60,7 +64,7 @@ class Bank {
         }
     }
 }
-
+//main class
 public class Main {
     public static void main(String[] args) {
         Bank bank = new Bank("MyBank");
@@ -77,3 +81,4 @@ public class Main {
         bank.displayCustomers();
     }
 }
+//unnecessary comment at the end
